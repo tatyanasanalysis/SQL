@@ -1,0 +1,29 @@
+--create a department store database and stats
+
+CREATE TABLE store (id integer primary key, name text, department text, price integer, sold integer);
+
+INSERT INTO store VALUES
+(1, "hoodies","loungewear" , 75, 100),
+(2, "crewnecks", "loungewear", 70, 90),
+(3, "joggers", "loungewear", 55, 85),
+(4, "socks", "footwear", 12, 80),
+(5, "hats", "hat", 15, 75),
+(6, "leggings", "activewear", 50, 90),
+(7, "t-shirts", "athletic", 30, 50),
+(8, "tennis shoes", "athletic", 45, 40),
+(9, "football shoes", "athletic", 50, 60),
+(10, "baseball shoes", "athletic", 50, 70),
+(11, "sports bras", "activewear", 20, 50),
+(12, "dresses", "formal", 15, 30),
+(13, "dress shoes", "formal", 60, 65),
+(14, "ties", "formal", 65, 85),
+(15, "bowties", "formal", 15, 45);
+
+--disyplay database ordered by price
+SELECT * FROM store ORDER BY price;
+
+--what was the total amount of sales from the store?
+SELECT SUM(price*sold) FROM store;
+
+--order products from most sold to the least sold
+SELECT name, sold FROM store ORDER BY sold DESC
