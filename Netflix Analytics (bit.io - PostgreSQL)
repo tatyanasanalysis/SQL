@@ -1,20 +1,18 @@
 --In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
 
 --1. How many movie titles are there in the database? (movies only, not tv shows)
-SELECT type, COUNT(title) 
+SELECT COUNT(*) 
 FROM "CharlotteChaze/BreakIntoTech". "netflix_titles_info" 
-WHERE type='movie' GROUP BY type;
+WHERE type='Movie';
 
 --2. When was the most recent batch of tv shows and/or movies added to the database?
-SELECT title, type, date_added 
-FROM "CharlotteChaze/BreakIntoTech". "netflix_titles_info" 
-ORDER BY date_added DESC 
-LIMIT 5;
+SELECT MAX(date(date_added)) 
+FROM "CharlotteChaze/BreakIntoTech". "netflix_titles_info";
 
 --3. List all the movies and tv shows in alphabetical order.
-SELECT title, type 
+SELECT title
 FROM "CharlotteChaze/BreakIntoTech". "netflix_titles_info" 
-ORDER BY title;
+ORDER BY title ASC;
 
 --4. Who was the Director for the movie Bright Star?
 SELECT people.director, title.title
