@@ -1,0 +1,114 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE artist (id integer primary key, fullname text, individual_or_group text, country_id text);
+
+INSERT INTO artist (id, fullname, individual_or_group, country_id) VALUES
+(1, "Taylor Swift","individual", "USA"),
+(2, "Justin Bieber","individual", "Canada"),
+(3, "Beyonce","individual", "USA"),
+(4, "BLACKPINK","group", "South Korea"),
+(5, "BTS","group", "South Korea"),
+(6, "SZA","individual", "USA"),
+(7, "Hands Like Houses","group", "Australia"),
+(8, "NF","individual", "USA"),
+(9, "Alan Walker","individual", "Norway"),
+(10, "One Direction","group", "United Kingdom"),
+(11, "Alvero Soler","individual", "Spain"),
+(12, "aespa","group", "South Korea"),
+(13, "Zedd","individual", "Germany"),
+(14, "Becky G","individual", "USA"),
+(15, "Fifth Harmony","group", "USA");
+
+CREATE TABLE songs (id integer primary key, artist_id integer, title text, album text);
+
+INSERT INTO songs (artist_id, title, album) VALUES
+(1, "Mary's Song", "Debut"),
+(1, "Jump Then Fall", "Fearless"),
+(1, "Superman", "Speak Now"),
+(1, "Sad Beautiful Tragic", "Red"),
+(1, "Wonderland", "1989"),
+(1, "...Ready For It?", "Reputation"),
+(1, "Daylight", "Lover"),
+(1, "seven", "folklore"),
+(1, "dorothea", "evermore"),
+(1, "Bejeweled", "Midnights"),
+(2, "Favorite Girl", "My World"),
+(2, "Baby", "My World 2.0"),
+(2, "Never Say Never ft. Jaden", "Never Say Never - The Remixes"),
+(2, "Maria", "Believe Deluxe"),
+(2, "What's Hatnin'", "Journals"),
+(2, "No Sense", "Purpose Deluxe"),
+(2, "Second Emotion ft. Travis Scott", "Changes"),
+(2, "Red Eye ft. TroyBoi", "Justice The Complete Edition"),
+(3, "Crazy In Love ft Jay-Z", "Dangerously In Love"),
+(3, "Irreplacable", "B-Day Deluxe Edition"),
+(3, "Diva", "I AM...SASHA FIERCE"),
+(3, "Schoolin Life", "4"),
+(3, "XO", "BEYONCE [Platinum Edition]"),
+(3, "Formation", "Lemonade"),
+(3, "Find Your Way Back", "The Lion King: The Gift"),
+(3, "AMERICA HAS A PROBLEM", "RENAISSANCE"),
+(4, "Pretty Savage", "THE ALBUM"),
+(4, "Ready For Love", "BORN PINK"),
+(5, "We Are Bulletproof Pt. 2", "2 Cool 4 Skool"),
+(5, "Coffee", "O!RUL8,2?"),
+(5, "Tomorrow", "Skool Luv Affair (Special Edition)"),
+(5, "Embarrassed", "Dark & Wild"),
+(5, "I Need U", "The Most Beautiful Moment in Life Pt. 1"),
+(5, "Silver Spoon", "The Most Beautiful Moment in Life Pt. 2"),
+(5, "Burning Up (Fire)", "The Most Beautiful Moment in Life: Young Forever"),
+(5, "BTS Cypher 4", "Wings"),
+(5, "Spring Day", "You Never Walk Alone"),
+(5, "Airplane pt.2", "Love Yourself: Answer"),
+(5, "Boy With Luv ft. Halsey", "MAP OF THE SOUL: PERSONA"),
+(5, "UGH!", "MAP OF THE SOUL: 7"),
+(5, "Stay", "BE"),
+(5, "Run BTS", "Proof"),
+(6, "Love Galore ft. Travis Scott", "Ctrl Deluxe"),
+(6, "Conceited", "SOS"),
+(7, "A Clown and His Pipe", "Ground Dweller"),
+(7, "A Tale of Outer Suburbia", "Unimagine"),
+(7, "I Am", "Dissonants"),
+(7, "Kingdom Come", "Anon."),
+(8, "Wait", "Mansion"),
+(8, "Real", "Therapy Session"),
+(8, "Green Lights", "Perception"),
+(8, "WHY", "The Search"),
+(8, "LAYERS", "CLOUDS (THE MIXTAPE)"),
+(8, "CAREFUL ft. Cordae", "HOPE"),
+(9, "Sing Me To Sleep", "Different World"),
+(9, "Man On The Moon ft. Benjamin Ingrosso", "World Of Walker"),
+(9, "The Drum", "Walkerverse Pt. I & II"),
+(10, "One Thing", "Up All Night"),
+(10, "Last First Kiss", "Take Me Home (Expanded Edition)"),
+(10, "Best Song Ever", "Midnight Memories Deluxe"),
+(10, "Once in a Lifetime", "FOUR Deluxe"),
+(10, "Drag Me Down", "Made In The A.M. (Deluxe Edition)"),
+(11, "Sofia", "Eterno Agosto"),
+(11, "Lo Mismo ft. GIMS", "Mar De Colores (Version Extendida)"),
+(11, "Alma De Luz", "Magia"),
+(12, "Savage", "Savage - The 1st Mini Album"),
+(12, "Girls", "Girls - The 2nd Mini Album"),
+(12, "Spicy", "MY WORLD - The 3rd Mini Album"),
+(13, "Done With Love", "True Colors"),
+(13, "Clarity", "Clarity Deluxe"),
+(14, "NO TE PERTENEZCO", "MALA SANTA"),
+(14, "MAMIII ft. KAROL G", "ESQUEMAS"),
+(15, "This is How We Roll", "Reflection Deluxe"),
+(15, "The Life", "7/27 Deluxe"),
+(15, "Angel", "Fifth Harmony");
+
+/* What songs does each singer sing and what albums are they on? */
+SELECT a.fullname, s.title, s.album FROM artist a LEFT OUTER JOIN songs s ON a.id = s.artist_id;
+
+/* Where is each artist from? */
+SELECT fullname AS artist, country_id AS country FROM artist ORDER BY country_id;
+
+/* How many total songs are there? */
+SELECT COUNT(title) AS total_songs FROM songs;
+
+/* Did individual or group artists have the most songs? */
+SELECT artist.individual_or_group, COUNT(artist.individual_or_group) AS songs FROM artist LEFT OUTER JOIN songs ON artist.id = songs.artist_id GROUP BY artist.individual_or_group;
+
+/* Order countries from greatest to least by songs. */
+SELECT artist.country_id AS countries, COUNT(artist.individual_or_group) AS songs FROM artist LEFT OUTER JOIN songs ON artist.id = songs.artist_id GROUP BY artist.country_id ORDER BY songs DESC;
