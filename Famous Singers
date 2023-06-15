@@ -99,7 +99,9 @@ INSERT INTO songs (artist_id, title, album) VALUES
 (15, "Angel", "Fifth Harmony");
 
 /* What songs does each singer sing and what albums are they on? */
-SELECT a.fullname, s.title, s.album FROM artist a LEFT OUTER JOIN songs s ON a.id = s.artist_id;
+SELECT a.fullname, s.title, s.album 
+FROM artist a 
+LEFT OUTER JOIN songs s ON a.id = s.artist_id;
 
 /* Where is each artist from? */
 SELECT fullname AS artist, country_id AS country FROM artist ORDER BY country_id;
@@ -108,7 +110,14 @@ SELECT fullname AS artist, country_id AS country FROM artist ORDER BY country_id
 SELECT COUNT(title) AS total_songs FROM songs;
 
 /* Did individual or group artists have the most songs? */
-SELECT artist.individual_or_group, COUNT(artist.individual_or_group) AS songs FROM artist LEFT OUTER JOIN songs ON artist.id = songs.artist_id GROUP BY artist.individual_or_group;
+SELECT artist.individual_or_group, COUNT(artist.individual_or_group) AS songs 
+FROM artist 
+LEFT OUTER JOIN songs ON artist.id = songs.artist_id 
+GROUP BY artist.individual_or_group;
 
 /* Order countries from greatest to least by songs. */
-SELECT artist.country_id AS countries, COUNT(artist.individual_or_group) AS songs FROM artist LEFT OUTER JOIN songs ON artist.id = songs.artist_id GROUP BY artist.country_id ORDER BY songs DESC;
+SELECT artist.country_id AS countries, COUNT(artist.individual_or_group) AS songs 
+FROM artist 
+LEFT OUTER JOIN songs ON artist.id = songs.artist_id 
+GROUP BY artist.country_id 
+ORDER BY songs DESC;
