@@ -23,6 +23,10 @@ AND orderid <> 'Order ID';
 
 
 /* 4. Which product was the cheapest one sold in January, and what was the price? */
+SELECT DISTINCT product, price
+FROM BIT_DB.JanSales
+WHERE  price in (SELECT min(price) FROM BIT_DB.JanSales);
+/* OR */
 SELECT DISTINCT product, price 
 FROM BIT_DB.JanSales 
 ORDER BY price ASC LIMIT 1;
