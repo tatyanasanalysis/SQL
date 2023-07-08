@@ -82,4 +82,47 @@ GROUP BY salesagent
 ORDER BY totalsales DESC
 LIMIT 1;
 
+/* 15. How many tracks are in each genere? */
+SELECT g.name as genre, COUNT(t.name) as trackname
+FROM chinook.genres g
+JOIN chinook.tracks t on t.genreid=g.genreid
+GROUP BY genre;
 
+/* 16. Which artist sold the most tracks? List how many were sold for each track name and the genre for each track. */
+SELECT COUNT(t.trackid) as tracks_sold, t.name as track , a.name as artist, g.name as genre
+FROM chinook.tracks t
+JOIN chinook.albums al on t.albumid=al.albumid
+JOIN chinook.artists a on al.artistid=a.artistid
+JOIN chinook.genres g on t.genreid=g.genreid
+GROUP BY t.name
+ORDER BY tracks_sold DESC
+LIMIT 6;
+
+/* 17. Give me a list of all the tracks and name playlists they're in. */
+SELECT t.name as track, p.name as playlist
+FROM chinook.tracks t
+JOIN chinook.playlist_track pt on t.trackid=pt.trackid
+JOIN chinook.playlists p on pt.playlistid=p.playlistid;
+
+/* 18. How many songs are in each playlist? */
+SELECT p.name as playlist, COUNT(t.name) as track
+FROM chinook.tracks t
+JOIN chinook.playlist_track pt on t.trackid=pt.trackid
+JOIN chinook.playlists p on pt.playlistid=p.playlistid
+GROUP BY playlist
+ORDER BY track DESC;
+
+/* 19. Give me a list of countries and the total sales for each. Order from which country sold the most to the least. */
+SELECT billingcountry, ROUND(SUM(total), 2) as totalsales
+FROM chinook.invoices
+GROUP BY billingcountry
+ORDER BY totalsales DESC;
+
+/* 20. Give me a list of media types and the total for each. */
+SELECT m.name as mediatype, ROUND(SUM(i.total), 2) as total
+FROM chinook.media_types m
+JOIN chinook.tracks t on m.mediatypeid=t.mediatypeid
+JOIN chinook.invoice_items it on t.trackid=it.trackid
+JOIN chinook.invoices i on it.invoiceid=i.invoiceid
+GROUP BY mediatype
+ORDER BY total DESC;
