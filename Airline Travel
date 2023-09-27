@@ -1,0 +1,34 @@
+
+
+
+/* How many planes actually arrived at their arrival airport? */
+select count(actual_arrival)
+from airlinetravel.flights
+where actual_arrival is not '\N';
+
+/* Give me a list of how many planes actually arrived at each arrival airport based on the previous question. */
+select distinct arrival_airport, count(actual_arrival) as actual_arrival
+from airlinetravel.flights
+where actual_arrival is not '\N'
+group by arrival_airport;
+
+/* How many tickets are there for each fare condision and the average price for each? */
+select fare_conditions, count(ticket_no) as tickets, round(avg(amount)) as averageprice
+from airlinetravel.ticket_flights
+group by fare_conditions;
+
+/* How many of each model plane was used based on flights that actually arived? */
+select ad.model, count(f.actual_arrival) as planes
+from airlinetravel.aircrafts_data ad
+join airlinetravel.flights f on f.aircraft_code=ad.aircraft_code
+where actual_arrival is not '\N'
+group by ad.model
+order by planes desc;
+
+/* Give me the list of Cessna flight ids and seat numbers where their departure airport is ABA. Also show me what airport those planes arrived.*/
+select distinct bp.flight_id, f.arrival_airport, s.seat_no as seat
+from airlinetravel.seats s
+join airlinetravel.aircrafts_data ad on s.aircraft_code=ad.aircraft_code
+join airlinetravel.boarding_passes bp on s.seat_no=bp.seat_no
+join airlinetravel.flights f on s.aircraft_code=f.aircraft_code
+where ad.model like '%Cessna%' and actual_arrival is not '\N' and f.departure_airport is 'ABA';
