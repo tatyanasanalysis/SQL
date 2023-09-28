@@ -1,4 +1,4 @@
---In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+/* This project utilized data from the Netflix database stored at http://sqlfiddle.com/#!17/7dae0/ */
 
 --1. How many movie titles are there in the database? (movies only, not tv shows)
 SELECT COUNT(*) 
