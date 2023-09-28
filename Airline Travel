@@ -1,4 +1,4 @@
-/* In this SQL code, I'm querying a database from Kaggle that involves Airplane data to answer questions about that data. */
+/* This project utilized data from Airline Data Analysis stored on https://www.kaggle.com/datasets/fiazbhk/airline-data-analysis */
 
 
 /* How many planes actually arrived at their arrival airport? */
